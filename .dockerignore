@@ -1,0 +1,8 @@
+node_modules
+.eslintrc
+.gitignore
+.prettierrc
+README.md
+test
+.elasticbeanstalk
+npm-debug.log
