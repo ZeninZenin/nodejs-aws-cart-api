@@ -7,17 +7,25 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
-# Build
-WORKDIR /app
 COPY . .
+
+# Build
 RUN npm run build
 
-# Application
-FROM node:12-alpine AS application
+# remove development dependencies
+RUN npm prune --production
 
-COPY --from=build /app/package*.json ./
-RUN npm install --only=production
+# run node prune
+RUN /app/scripts/node/node-prune.sh
+
+# Application
+FROM node:12-alpine as application
+
+WORKDIR /app
+
+# copy from build image
 COPY --from=build /app/dist ./dist
+COPY --from=build /app/node_modules ./node_modules
 
 USER node
 ENV PORT=8080

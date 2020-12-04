@@ -2,7 +2,8 @@ node_modules
 .eslintrc
 .gitignore
 .prettierrc
-README.md
+*.md
 test
 .elasticbeanstalk
 npm-debug.log
+*.spec.*
